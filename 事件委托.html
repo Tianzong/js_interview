@@ -6,17 +6,26 @@
 </head>
 <body>
 <h3>实现一个时间委托，比如给li绑定单击事件</h3>
-<ul class="fruit">
-    <li>苹果</li>
-    <li>香蕉 <span style="color: red">超大个</span></li>
-    <li>菠萝</li>
-</ul>
+<p> 我点击li 会弹出li的内容 但是不能冒泡 且必须显示完全 不能只显示span </p>
+<div class="box">
+    <ul class="fruit">
+        <li>苹果</li>
+        <li>香蕉 <span style="color: red">超大个</span></li>
+        <li>菠萝</li>
+    </ul>
+</div>
 
 <script>
   Array.from(document.querySelectorAll('.fruit li')).forEach((target) => {
     target.addEventListener('click', e => {
-      console.log(e.target.innerText)
+      target = e.target.closest('li')
+      console.log(target.innerText)
+      e.stopPropagation()
     })
+  })
+
+  document.querySelector('.box').addEventListener('click', e => {
+    console.log('box')
   })
 </script>
 </body>
