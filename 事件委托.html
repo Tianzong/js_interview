@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>实现一个时间委托，比如给li绑定单击事件</h3>
+<ul class="fruit">
+    <li>苹果</li>
+    <li>香蕉 <span style="color: red">超大个</span></li>
+    <li>菠萝</li>
+</ul>
+
+<script>
+  Array.from(document.querySelectorAll('.fruit li')).forEach((target) => {
+    target.addEventListener('click', e => {
+      console.log(e.target.innerText)
+    })
+  })
+</script>
+</body>
+</html>
