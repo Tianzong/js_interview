@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数颗粒化</title>
+</head>
+<body>
+柯里化就是把接受「多个参数」的函数变换成接受一个「单一参数」的函数，并且返回接受「余下参数」返回结果的一种应用。
+
+<script>
+    function Curry(fn) {
+      let args = Array.from(arguments).slice(1)
+      return function () {
+        let innerArgs = Array.from(arguments)
+        let finalArgs = args.concat(innerArgs)
+        return fn.apply(null, finalArgs)
+      }
+    }
+
+    function Curry2(fn) {
+      // 闭包 好像很不优雅的样子
+      // 待优化
+      let savedArgs = []    // 已经保存过得参数
+      return function temp() {
+        let innerArgs = Array.from( arguments )
+        let concatArgs = savedArgs.concat(innerArgs)
+        if (concatArgs.length< fn.length) {
+          savedArgs = savedArgs.concat(innerArgs)
+          return temp
+        } else {
+          savedArgs = []
+          return fn.apply(this, concatArgs)
+        }
+      }
+    }
+
+    let add = (a, b, c) => a + b + c
+    let currAdd = Curry2(add)
+    console.log(currAdd(1)(2)(3));
+    console.log(currAdd(1, 2, 3));
+    console.log(currAdd(2, 3)(1));
+
+</script>
+</body>
+</html>

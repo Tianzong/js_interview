@@ -6,29 +6,38 @@
 </head>
 <body>
 <h3>
-    「防抖debounce」,在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时。场景👇
+    「节流throttle」，规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。场景👇
 
-    <p>浏览器窗口大小resize避免次数过于频繁</p>
-    <p>    登录，发短信等按钮避免发送多次请求</p>
-    <p>文本编辑器实时保存</p>
+    <ul>
+        <li>scroll滚动事件，每隔特定描述执行回调函数</li>
+    </ul>
 </h3>
 
 <div>
-    <button class="btn"> 无论你点的多快，一段时间我只能执行一次 </button>
+    <button class="btn"> 无论你点的多快，一段时间我只能执行第一次 </button>
 </div>
 
 <script>
     const debounce = function(fn, waitTime) {
-      // waitTime 后开始执行
-      let timer = setTimeout(fn, waitTime)
-
+      let flag = true
       return function () {
-
+        if (flag) {
+          fn.apply(this, arguments)
+          flag = false      // 一段时间内 禁止重复触发定时器
+         setTimeout(()=> {
+            // wait
+            flag = true     // 释放定时器
+          }, waitTime)
+        }
       }
     }
 
-    document.querySelector('btn').addEventListener('click', function () {
+    let fn = debounce((msg) => {
+      console.log(msg)
+    }, 1000)
 
+    document.querySelector('.btn').addEventListener('click', function () {
+      fn('nihao')
     })
 </script>
 </body>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组去重</title>
+</head>
+<body>
+<p>
+    <img src="img/数组去重.png" alt="">
+</p>
+
+<script>
+  var array = [1, 1, '1', '1', null, null,
+    undefined, undefined,
+    new String('1'),
+    new String('1'),
+    /a/, /a/,
+    NaN, NaN
+  ]
+
+  console.log(new Set(array))
+
+</script>
+</body>
+</html>

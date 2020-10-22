@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组flat</title>
+</head>
+<body>
+
+Array.prototype.flat(num)
+// num表示的是维度
+// 指定要提取嵌套数组的结构深度，默认值为 1
+使用 Infinity，可展开任意深度的嵌套数组
+<script>
+    // 这什么代码 看起来好Low
+    const flagDeep = (arr) => {
+      const _dfs = (el) => {
+        if (Array.isArray(el)) {
+          const temp = []
+          el.forEach( e => {
+            temp.push(..._dfs(e))
+          })
+          return temp
+        } else {
+          return [el]
+        }
+      }
+      return _dfs(arr)
+    }
+
+    // 阿巴 阿吧 阿巴？
+    // 看起来很牛逼 就是看不懂 还是我写的好
+    function flatDeep(arr, d = 1) {
+      return d > 0 ? arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val),
+        []) :
+        arr.slice();
+    };
+
+    // var arr1 = [1,2,3,[1,2,3,4, [2,3,4]]];
+    // flatDeep(arr1, Infinity);
+
+    const inputArr = [1,2,3,[1,2,3,4, [2,3,4]]]
+    console.log(flagDeep(inputArr))
+</script>
+</body>
+</html>
